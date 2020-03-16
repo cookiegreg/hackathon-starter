@@ -1,4 +1,4 @@
-@import "node_modules/bootswatch/dist/flatly/variables";
+@import "themes/materia/variables";
 
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/@ladjs/bootstrap-social/bootstrap-social.scss";
@@ -7,7 +7,7 @@
 @import "node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "node_modules/@fortawesome/fontawesome-free/scss/solid";
 
-@import "node_modules/bootswatch/dist/flatly/bootswatch";
+@import "themes/materia/materia";
 
 // Scaffolding
 // -------------------------
