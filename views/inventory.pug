@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 
+      i.fas.fa-database
+      | Inventory
+  .row
+    .col-md-6
+      h4 Database list
+  .row
+    .col-md-6
+        main
+            if databases.length > 0
+                .grid
+                    each database in databases
+                        article.card.database-item
+                            header.card__header
+                                h1.database__title #{database.databaseName}
+                            div.card__image
+                                img(src="mysql-logo.svg", alt="A database")
+                            div.card__content
+                                h2.database__price $19.99
+                                p.database__description A very important database about so many even more interesting things!
+                            .card__actions
+                                button.btn View details
+            else
+                h4 No databases...

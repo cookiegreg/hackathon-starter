@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 
+      i.fas.fa-database
+      | DB Refresh
+    ul
+      each val in [1, 2, 3, 4, 5]
+        li= val

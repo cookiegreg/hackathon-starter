@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 
+      i.fas.fa-database
+      | Admin
+  .row
+    .col-md-6
+        .dropdown
+        a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+            | Admin Menu
+        .dropdown-menu(aria-labelledby='AdminMenu')
+            a.dropdown-item(href='admin/edit-database') Add a database
+            a.dropdown-item(href='admin/edit-deploypath') Add a deploy path
+            a.dropdown-item(href='admin/edit-refreshpath') Add a refresh path
+  .row
+    .col-md-6
+            main
+                if databases.length > 0
+                  .grid
+                      ul
+                        each database in databases
+                            li= database.databaseName, database.instanceName, database.serverName
+                else
+                    h4 No databases
+    
