@@ -8,7 +8,6 @@ exports.getDeploy = (req, res) => {
   });
 };
 
-
 /**
  * GET /deploy/upload
  * File Upload API example.

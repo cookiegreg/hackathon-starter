@@ -29,7 +29,7 @@ exports.getDatabase = (req, res, next) => {
       console.log(databases);
       res.render('inventory', {
         databases: databases,
-        title: 'All Databases',
+        title: 'A Database',
         path: '/'
       });
     })

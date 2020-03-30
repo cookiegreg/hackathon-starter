@@ -19,12 +19,16 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const upload = multer({
+  dest: path.join(__dirname, 'uploads')
+});
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.config({ path: '.env.example' });
+dotenv.config({
+  path: '.env.example'
+});
 
 /**
  * Controllers (route handlers).
@@ -32,7 +36,7 @@ dotenv.config({ path: '.env.example' });
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const deployController = require('./controllers/deploy');
-const databaseController = require('./controllers/database');
+const inventoryController = require('./controllers/inventory');
 const adminController = require('./controllers/admin');
 const dbrefreshController = require('./controllers/dbrefresh');
 
@@ -75,12 +79,16 @@ app.use(sass({
 }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
-  cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
+  cookie: {
+    maxAge: 1209600000
+  }, // two weeks in milliseconds
   store: new MongoStore({
     url: process.env.MONGODB_URI,
     autoReconnect: true,
@@ -105,12 +113,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/chart.js/dist'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600000 }));
-app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), { maxAge: 31557600000 }));
+app.use('/', express.static(path.join(__dirname, 'public'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/chart.js/dist'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), {
+  maxAge: 31557600000
+}));
+app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), {
+  maxAge: 31557600000
+}));
 
 /**
  * Primary app routes.
@@ -126,9 +146,14 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/admin', adminController.getAdmin);
-app.get('/admin/edit-database', adminController.getDatabaseList);
+app.get('/admin/edit-database', adminController.getAddDatabase);
+app.get('/admin/edit-database/:_id', adminController.getDatabase);
 app.post('/admin/edit-database', adminController.postAddDatabase);
-app.get('/inventory', databaseController.getDatabaseList);
+app.get('/admin/edit-refreshpath', adminController.getRefreshpathList);
+app.post('/admin/edit-refreshpath', adminController.postAddRefreshpath);
+app.get('/admin/edit-deploypath', adminController.getDeploypathList);
+app.post('/admin/edit-deploypath', adminController.postAddDeploypath);
+app.get('/inventory', inventoryController.getDatabaseList);
 app.get('/deploy', deployController.getDeploy);
 app.get('/dbrefresh', dbrefreshController.getDbRefresh);
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
@@ -141,9 +166,13 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 /**
  * API examples routes.
  */
-app.get('/deploy', deployController.getDeploy);
-app.get('/deploy/upload', lusca({ csrf: true }), deployController.getFileUpload);
-app.post('/deploy/upload', upload.single('myFile'), lusca({ csrf: true }), deployController.postFileUpload);
+// app.get('/deploy', deployController.getDeploy);
+app.get('/deploy/upload', lusca({
+  csrf: true
+}), deployController.getFileUpload);
+app.post('/deploy/upload', upload.single('myFile'), lusca({
+  csrf: true
+}), deployController.postFileUpload);
 
 /**
  * Error Handler.

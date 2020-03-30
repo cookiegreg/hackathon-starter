@@ -8,21 +8,36 @@ block content
   .row
     .col-md-6
       h4 Database list
-  .row
-    .col-md-6
-        main
-            if databases.length > 0
-                .grid
-                    each database in databases
-                        article.card.database-item
-                            header.card__header
-                                h4 #{database.databaseName}
-                            div.card__image
-                                img(src="mysql-logo.svg", alt="A database")
-                            div.card__content
-                                h4 #{database.serverName}
-                                p.database__description A very important database about so many even more interesting things!
-                            .card__actions
-                                button.btn View details
-            else
-                h4 No databases...
+  p
+  main
+    if databases.length > 0
+        table.table.table-striped
+            thead.thead-dark
+                tr
+                    th Database Name
+                    th Instance Name
+                    th Server Name
+                    th Status
+                    th Job
+                    th Type
+                    th Environment
+                    th Version
+                    th Port
+                    th IUA
+                    th Action
+                each database in databases
+                    tr
+                    td= database.dbname
+                    td= database.instancename
+                    td= database.servername
+                    td= database.status
+                    td= database.job
+                    td= database.type
+                    td= database.environment
+                    td= database.version
+                    td= database.port
+                    td= database.iua
+                    td 
+                      a(href='/admin/edit-database/'+database._id) Edit
+    else
+        h4 No databases...
