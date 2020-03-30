@@ -1,7 +1,7 @@
 const Database = require('../models/Database');
 
 /**
- * GET /database
+ * GET /inventory
  * Login page.
  */
 

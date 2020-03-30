@@ -16,11 +16,11 @@ block content
                     each database in databases
                         article.card.database-item
                             header.card__header
-                                h1.database__title #{database.databaseName}
+                                h4 #{database.databaseName}
                             div.card__image
                                 img(src="mysql-logo.svg", alt="A database")
                             div.card__content
-                                h2.database__price $19.99
+                                h4 #{database.serverName}
                                 p.database__description A very important database about so many even more interesting things!
                             .card__actions
                                 button.btn View details

@@ -37,26 +37,23 @@ exports.getDatabaseList = (req, res, next) => {
 
 // Add a database
 exports.postAddDatabase = (req, res, next) => {
-  const { databaseName } = req.body;
-  const { instanceName } = req.body;
-  const { serverName } = req.body;
   const database = new Database({
-    databaseName: String,
-    instanceName: [String],
-    serverName: [String],
-    status: String,
-    job: String,
-    type: String,
-    environment: String,
-    version: String,
-    port: String,
-    iua: [String]
+    databaseName: req.body.databaseName,
+    instanceName: req.body.instanceName.split(','),
+    serverName: req.body.serverName.split(','),
+    status: req.body.status,
+    job: req.body.job,
+    type: req.body.type,
+    environment: req.body.environment,
+    version: req.body.version,
+    port: req.body.port,
+    iua: req.body.iua.split(',')
   });
-  databases
+  database
     .save()
     .then((result) => {
       console.log('Database created');
-      res.redirect('admin/index');
+      res.redirect('/admin');
     })
     .catch((err) => {
       console.log(err);
