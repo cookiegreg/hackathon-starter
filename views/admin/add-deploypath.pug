@@ -2,9 +2,9 @@ extends ../layout
 
 block content
     .pb-2.mt-2.mb-4.border-bottom
-        h3 Edit Deploy Path
+        h3 Add Deploy Path
     .row
-    form(action='/admin/edit-deploypath', method='POST')
+    form(action='/admin/add-deploypath', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
             label(for='formGroupDeploypathInput') Deploypath name
@@ -76,4 +76,4 @@ block content
         .offset-md-3.col-md-7.pl-2
             button.col-md-3.btn.btn-primary(type='submit')
                 i.far.fa-plus
-                | Edit deploypath
+                | Add deploypath

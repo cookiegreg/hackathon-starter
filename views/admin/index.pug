@@ -3,7 +3,7 @@ extends ../layout
 block content
     .pb-2.mt-2.mb-4.border-bottom
         h3 
-            i.fas.fa-database
+            i.fas.fa-cogs
             | Admin
     .row
         .col-md-6
@@ -11,9 +11,9 @@ block content
             a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
                 | Admin Menu
             .dropdown-menu(aria-labelledby='AdminMenu')
-                a.dropdown-item(href='admin/edit-database') Add a database
-                a.dropdown-item(href='admin/edit-deploypath') Add a deploy path
-                a.dropdown-item(href='admin/edit-refreshpath') Add a refresh path
+                a.dropdown-item(href='admin/add-database') Add a database
+                a.dropdown-item(href='admin/add-deploypath') Add a deploy path
+                a.dropdown-item(href='admin/add-refreshpath') Add a refresh path
     p
     main
         if databases.length > 0
@@ -30,6 +30,7 @@ block content
                         th Version
                         th Port
                         th IUA
+                        th Action 
                     each database in databases
                         tr
                         td= database.dbname
@@ -42,5 +43,11 @@ block content
                         td= database.version
                         td= database.port
                         td= database.iua
+                        td
+                            .btn-group.btn-group-sm(role='group' aria-label='action')
+                                a.btn.btn-primary(href='/admin/edit-database/'+database.id role='button' value=database.id)
+                                    i.fas.fa-edit
+                                a.btn.btn-danger(href='/admin/remove-database/'+database.id role='button' value=database.id)
+                                    i.fas.fa-trash-alt
         else
             h4 No databases...

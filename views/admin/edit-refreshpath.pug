@@ -2,7 +2,7 @@ extends ../layout
 
 block content
     .pb-2.mt-2.mb-4.border-bottom
-        h3 Add Refresh Path
+        h3 Edit Refresh Path
     .row
     form(action='/admin/edit-refreshpath', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
@@ -76,4 +76,4 @@ block content
         .offset-md-3.col-md-7.pl-2
             button.col-md-3.btn.btn-primary(type='submit')
                 i.far.fa-plus
-                | Add refreshpath
+                | Edit refreshpath

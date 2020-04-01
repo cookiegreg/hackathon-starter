@@ -135,7 +135,9 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 /**
  * Primary app routes.
  */
+// Home route
 app.get('/', homeController.index);
+// User routes
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -145,17 +147,21 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+// Admin routes
 app.get('/admin', adminController.getAdmin);
-app.get('/admin/edit-database', adminController.getAddDatabase);
-app.get('/admin/edit-database/:_id', adminController.getDatabase);
-app.post('/admin/edit-database', adminController.postAddDatabase);
-app.get('/admin/edit-refreshpath', adminController.getRefreshpathList);
-app.post('/admin/edit-refreshpath', adminController.postAddRefreshpath);
-app.get('/admin/edit-deploypath', adminController.getDeploypathList);
-app.post('/admin/edit-deploypath', adminController.postAddDeploypath);
+app.get('/admin/add-database', adminController.getAddDatabase);
+app.post('/admin/add-database', adminController.postAddDatabase);
+app.get('/admin/edit-database/:id', adminController.getEditDatabase);
+app.post('/admin/edit-database', adminController.postEditDatabase);
+app.get('/admin/add-refreshpath', adminController.getRefreshpathList);
+app.post('/admin/add-refreshpath', adminController.postAddRefreshpath);
+app.get('/admin/add-deploypath', adminController.getDeploypathList);
+app.post('/admin/add-deploypath', adminController.postAddDeploypath);
+// Menu routes
 app.get('/inventory', inventoryController.getDatabaseList);
 app.get('/deploy', deployController.getDeploy);
 app.get('/dbrefresh', dbrefreshController.getDbRefresh);
+// Account routes
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
 app.get('/account/verify/:token', passportConfig.isAuthenticated, userController.getVerifyEmailToken);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
@@ -164,7 +170,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 
 /**
- * API examples routes.
+ * File Upload routes.
  */
 // app.get('/deploy', deployController.getDeploy);
 app.get('/deploy/upload', lusca({
@@ -177,12 +183,12 @@ app.post('/deploy/upload', upload.single('myFile'), lusca({
 /**
  * Error Handler.
  */
-// 404
+// 404 error handler
 app.use((req, res, next) => {
   res.status(404).render('404');
 });
 
-// 500
+// 500 error handler
 if (process.env.NODE_ENV === 'development') {
   // only use in development
   app.use(errorHandler());

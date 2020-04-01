@@ -2,19 +2,19 @@ extends ../layout
 
 block content
     .pb-2.mt-2.mb-4.border-bottom
-        h3 Edit Deploy Path
+        h3 Add Database
     .row
-    form(action='/admin/edit-deploypath', method='POST')
+    form(action='/admin/add-database', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
-            label(for='formGroupDeploypathInput') Deploypath name
-            input#formGroupDeploypathInput.form-control(type='text' placeholder='GO7 Dev' name='name')
+            label(for='formGroupDatabaseInput') Database Name
+            input#formGroupDatabaseInput.form-control(type='text' placeholder='mydb' name='dbname')
         .form-group 
-            label(for='formGroupDeploypathInput') Description
-            input#formGroupDeploypathInput.form-control(type='text' placeholder='A deploy path for GO7' name='description')
+            label(for='formGroupDatabaseInput') Instance Name(s)
+            input#formGroupDatabaseInput.form-control(type='text' placeholder='mydb1,myd2,mydb3' name='instancename')
         .form-group
-            label(for='formGroupDeploypathInput') IUA
-            input#formGroupDeploypathInput.form-control(type='text' placeholder='mysrv1,mysrv2,mysrv3' name='iua')
+            label(for='formGroupDatabaseInput') Server Name(s)
+            input#formGroupDatabaseInput.form-control(type='text' placeholder='mysrv1,mysrv2,mysrv3' name='servername')
         .form-group
             label(for='inlineFormCustomSelect') Status
             select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='status')
@@ -29,7 +29,7 @@ block content
                 option(value='Communication') Communication
                 option(value='Conformité') Conformité
                 option(value='DF1') DF1
-                option(value='DF2') DF2
+                option(value='DF2') DF2q
                 option(value='DF4') DF4
                 option(value='DF5') DF5
                 option(value='DIL - Achat') DIL - Achat
@@ -65,15 +65,15 @@ block content
                 option(value='Bench') Bench
                 option(value='Production') Production
         .form-group
-            label(for='formGroupDeploypathInput7') Version
-            input#formGroupDeploypathInput7.form-control(type='text' placeholder='12C R1, 11G R2...' name='version')
+            label(for='formGroupDatabaseInput7') Version
+            input#formGroupDatabaseInput7.form-control(type='text' placeholder='12C R1, 11G R2...' name='version')
         .form-group
-            label(for='formGroupDeploypathInput8') Port
-            input#formGroupDeploypathInput8.form-control(type='text' placeholder='1521' name='port')
+            label(for='formGroupDatabaseInput8') Port
+            input#formGroupDatabaseInput8.form-control(type='text' placeholder='1521' name='port')
         .form-group
-            label(for='formGroupDeploypathInput9') IUA
-            input#formGroupDeploypathInput9.form-control(type='text' placeholder='GO7' name='iua')
+            label(for='formGroupDatabaseInput9') IUA
+            input#formGroupDatabaseInput9.form-control(type='text' placeholder='GO7' name='iua')
         .offset-md-3.col-md-7.pl-2
             button.col-md-3.btn.btn-primary(type='submit')
                 i.far.fa-plus
-                | Edit deploypath
+                | Add database

@@ -9,7 +9,6 @@ const Refreshpath = require('../models/Refreshpath');
 exports.getAdmin = (req, res) => {
   Database.find()
     .then((databases) => {
-      console.log(databases);
       res.render('admin/index', {
         databases,
         title: 'All Databases',
@@ -21,44 +20,27 @@ exports.getAdmin = (req, res) => {
 };
 
 /**
- * GET /admin/edit-database
+ * GET /admin/add-database
  * Edit Database form page.
  */
 exports.getAddDatabase = (req, res) => {
-  res.render('admin/edit-database', {
-    title: 'Add/Edit Database'
+  res.render('admin/add-database', {
+    title: 'Add Database'
   });
 };
 
 /**
- * GET /admin/
+ * GET /admin/edit-database
  * Edit Database form page.
  */
-/* exports.getDatabaseList = (req, res, next) => {
-  Database.find()
-    .then((databases) => {
-      console.log(databases);
-      res.render('admin/edit-database', {
-        databases,
-        title: 'All Databases',
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+exports.getEditDatabase = (req, res, next) => {
+  Database.findById(req.params.id, (err, database) => {
+    res.render('admin/edit-database', {
+      database,
+      title: 'My Database',
+      path: '/'
     });
-}; */
-
-exports.getDatabase = (req, res, next) => {
-  Database.find()
-    .then((databases) => {
-      console.log(databases);
-      res.render('admin', {
-        databases,
-        databaseName: databases.dbname,
-        title: databases.dbname,
-        path: '/'
-      });
-    })
+  })
     .catch((err) => {
       console.log(err);
     });
@@ -68,15 +50,15 @@ exports.getDatabase = (req, res, next) => {
 exports.postAddDatabase = (req, res, next) => {
   const database = new Database({
     dbname: req.body.dbname,
-    instancename: req.body.instancename,
-    servername: req.body.servername,
+    instancename: req.body.instancename.split(','),
+    servername: req.body.servername.split(','),
     status: req.body.status,
     job: req.body.job,
     type: req.body.type,
     environment: req.body.environment,
     version: req.body.version,
     port: req.body.port,
-    iua: req.body.iua
+    iua: req.body.iua.split(',')
   });
   database
     .save()
@@ -87,6 +69,41 @@ exports.postAddDatabase = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+// POST Edit a database
+exports.postEditDatabase = (req, res) => {
+  console.log(req.body.id);
+  Database.findByIdAndUpdate(req.body.id, {
+    $set: {
+      dbname: req.body.dbname,
+      instancename: req.body.instancename.split(','),
+      servername: req.body.servername.split(','),
+      status: req.body.status,
+      job: req.body.job,
+      type: req.body.type,
+      environment: req.body.environment,
+      version: req.body.version,
+      port: req.body.port,
+      iua: req.body.iua.split(',')
+    }
+  }, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/admin');
+  });
+};
+
+// Remove a database
+exports.postRemoveDatabase = (req, res) => {
+  console.log(req.body.id);
+  Database.findByIdAndRemove(req.body.id, (err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/admin');
+  });
 };
 
 /**

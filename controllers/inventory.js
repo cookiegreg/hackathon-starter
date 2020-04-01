@@ -9,7 +9,6 @@ const Database = require('../models/Database');
 exports.getDatabaseList = (req, res, next) => {
   Database.find()
     .then((databases) => {
-      console.log(databases);
       res.render('inventory', {
         databases: databases,
         title: 'All Databases',
@@ -22,7 +21,6 @@ exports.getDatabaseList = (req, res, next) => {
 };
 
 // FindOne database
-
 exports.getDatabase = (req, res, next) => {
   Database.findOne()
     .then((databases) => {

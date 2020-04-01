@@ -2,34 +2,35 @@ extends ../layout
 
 block content
     .pb-2.mt-2.mb-4.border-bottom
-        h3 Add/Edit Database
+        h3 Edit Database
     .row
     form(action='/admin/edit-database', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
+        input(type='hidden' name='id' value=database.id)
         .form-group
             label(for='formGroupDatabaseInput') Database Name
-            input#formGroupDatabaseInput.form-control(type='text' placeholder='mydb' name='dbname')
+            input#formGroupDatabaseInput.form-control(type='text' placeholder='mydb' name='dbname' value=database.dbname)
         .form-group 
             label(for='formGroupDatabaseInput') Instance Name(s)
-            input#formGroupDatabaseInput.form-control(type='text' placeholder='mydb1,myd2,mydb3' name='instancename')
+            input#formGroupDatabaseInput.form-control(type='text' placeholder='mydb1,myd2,mydb3' name='instancename' value=database.instancename.toString())
         .form-group
             label(for='formGroupDatabaseInput') Server Name(s)
-            input#formGroupDatabaseInput.form-control(type='text' placeholder='mysrv1,mysrv2,mysrv3' name='servername')
+            input#formGroupDatabaseInput.form-control(type='text' placeholder='mysrv1,mysrv2,mysrv3' name='servername' value=database.servername.toString())
         .form-group
             label(for='inlineFormCustomSelect') Status
-            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='status')
-                option(selected='') Choose...
+            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='status' value=database.status)
+                option(selected='#{database.status}') #{database.status}
                 option(value='Active') Active
                 option(value='Inactive') Inactive
                 option(value='End of exploitation') End of exploitation
         .form-group
             label(for='inlineFormCustomSelect') Job
-            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='job')
-                option(selected='') Choose...
+            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='job' value=database.job)
+                option(selected='#{database.job}') #{database.job}
                 option(value='Communication') Communication
                 option(value='Conformité') Conformité
                 option(value='DF1') DF1
-                option(value='DF2') DF2
+                option(value='DF2') DF2q
                 option(value='DF4') DF4
                 option(value='DF5') DF5
                 option(value='DIL - Achat') DIL - Achat
@@ -45,8 +46,8 @@ block content
                 option(value='Transverse') Transverse
         .form-group
             label(for='inlineFormCustomSelect') Type
-            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='type')
-                option(selected='') Choose...
+            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='type' value=database.type)
+                option(selected='#{database.type}') #{database.type}
                 option(value='Analysis Services') Analysis Services
                 option(value='Mongo Db') Mongo Db
                 option(value='MySql') MySql
@@ -57,8 +58,8 @@ block content
                 option(value='Sybase Replication Server') Sybase Replication Server
         .form-group
             label(for='inlineFormCustomSelect') Environment
-            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='environment')
-                option(selected='') Choose...
+            select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='environment' value=database.environment)
+                option(selected='#{database.environment}') #{database.environment}
                 option(value='Development') Development
                 option(value='Test') Test
                 option(value='UAT') UAT
@@ -66,14 +67,14 @@ block content
                 option(value='Production') Production
         .form-group
             label(for='formGroupDatabaseInput7') Version
-            input#formGroupDatabaseInput7.form-control(type='text' placeholder='12C R1, 11G R2...' name='version')
+            input#formGroupDatabaseInput7.form-control(type='text' placeholder='12C R1, 11G R2...' name='version' value=database.version)
         .form-group
             label(for='formGroupDatabaseInput8') Port
-            input#formGroupDatabaseInput8.form-control(type='text' placeholder='1521' name='port')
+            input#formGroupDatabaseInput8.form-control(type='text' placeholder='1521' name='port' value=database.port)
         .form-group
             label(for='formGroupDatabaseInput9') IUA
-            input#formGroupDatabaseInput9.form-control(type='text' placeholder='GO7' name='iua')
+            input#formGroupDatabaseInput9.form-control(type='text' placeholder='GO7' name='iua' value=database.iua.toString())
         .offset-md-3.col-md-7.pl-2
             button.col-md-3.btn.btn-primary(type='submit')
                 i.far.fa-plus
-                | Add database
+                | Edit database
