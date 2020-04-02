@@ -10,7 +10,7 @@ exports.getDeploy = (req, res) => {
 
 /**
  * GET /deploy/upload
- * File Upload API example.
+ * File Upload.
  */
 
 exports.getFileUpload = (req, res) => {
@@ -21,7 +21,7 @@ exports.getFileUpload = (req, res) => {
 
 /**
  * POST /deploy/upload
- * File Upload API example.
+ * File Upload.
  */
 
 exports.postFileUpload = (req, res) => {
