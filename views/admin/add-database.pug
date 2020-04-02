@@ -3,7 +3,6 @@ extends ../layout
 block content
     .pb-2.mt-2.mb-4.border-bottom
         h3 Add Database
-    .row
     form(action='/admin/add-database', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
@@ -74,6 +73,6 @@ block content
             label(for='formGroupDatabaseInput9') IUA
             input#formGroupDatabaseInput9.form-control(type='text' placeholder='GO7' name='iua')
         .offset-md-3.col-md-7.pl-2
-            button.col-md-3.btn.btn-primary(type='submit')
-                i.far.fa-plus
+            button.col-md-7.btn.btn-primary(type='submit')
+                i.fas.fa-plus.fa-sm
                 | Add database

@@ -148,15 +148,20 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 // Admin routes
-app.get('/admin', adminController.getAdmin);
-app.get('/admin/add-database', adminController.getAddDatabase);
-app.post('/admin/add-database', adminController.postAddDatabase);
-app.get('/admin/edit-database/:id', adminController.getEditDatabase);
-app.post('/admin/edit-database', adminController.postEditDatabase);
-app.get('/admin/add-refreshpath', adminController.getRefreshpathList);
-app.post('/admin/add-refreshpath', adminController.postAddRefreshpath);
-app.get('/admin/add-deploypath', adminController.getDeploypathList);
-app.post('/admin/add-deploypath', adminController.postAddDeploypath);
+//    Database Admin routes
+app.get('/admin', passportConfig.isAuthenticated, adminController.getAdmin);
+app.get('/admin/add-database', passportConfig.isAuthenticated, adminController.getAddDatabase);
+app.post('/admin/add-database', passportConfig.isAuthenticated, adminController.postAddDatabase);
+app.get('/admin/edit-database/:id', passportConfig.isAuthenticated, adminController.getEditDatabase);
+app.post('/admin/edit-database', passportConfig.isAuthenticated, adminController.postEditDatabase);
+app.get('/admin/remove-database/:id', passportConfig.isAuthenticated, adminController.getRemoveDatabase);
+app.post('/admin/remove-database', passportConfig.isAuthenticated, adminController.postRemoveDatabase);
+//    Refreshpath Admin routes
+app.get('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.getRefreshpathList);
+app.post('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.postAddRefreshpath);
+//    Deploypath Admin routes
+app.get('/admin/add-deploypath', passportConfig.isAuthenticated, adminController.getDeploypathList);
+app.post('/admin/add-deploypath', passportConfig.isAuthenticated, adminController.postAddDeploypath);
 // Menu routes
 app.get('/inventory', inventoryController.getDatabaseList);
 app.get('/deploy', deployController.getDeploy);

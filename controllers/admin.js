@@ -33,7 +33,7 @@ exports.getAddDatabase = (req, res) => {
  * GET /admin/edit-database
  * Edit Database form page.
  */
-exports.getEditDatabase = (req, res, next) => {
+exports.getEditDatabase = (req, res) => {
   Database.findById(req.params.id, (err, database) => {
     res.render('admin/edit-database', {
       database,
@@ -96,6 +96,19 @@ exports.postEditDatabase = (req, res) => {
 };
 
 // Remove a database
+exports.getRemoveDatabase = (req, res) => {
+  Database.findById(req.params.id, (err, database) => {
+    res.render('admin/remove-database', {
+      database,
+      title: 'Remove Database',
+      path: '/'
+    });
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 exports.postRemoveDatabase = (req, res) => {
   console.log(req.body.id);
   Database.findByIdAndRemove(req.body.id, (err) => {

@@ -3,7 +3,6 @@ extends ../layout
 block content
     .pb-2.mt-2.mb-4.border-bottom
         h3 Edit Deploy Path
-    .row
     form(action='/admin/edit-deploypath', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
@@ -74,6 +73,6 @@ block content
             label(for='formGroupDeploypathInput9') IUA
             input#formGroupDeploypathInput9.form-control(type='text' placeholder='GO7' name='iua')
         .offset-md-3.col-md-7.pl-2
-            button.col-md-3.btn.btn-primary(type='submit')
-                i.far.fa-plus
-                | Edit deploypath
+            button.col-md-7.btn.btn-primary(type='submit')
+                i.fas.fa-edit
+                | Edit Path
