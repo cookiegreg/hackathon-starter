@@ -2,7 +2,7 @@ If you are done with your hackathon and thinking about launching your project in
 
 - Update the To/From email address for the Contact Form and the Lost Password controller codes
 - Remove Unused code and configs
-- Add a proxy such as Cloudflare in front of your production deployment
+- Add a proxy such as Cloudflare in front of your production deliveryment
 - Add Terms of Service and Privacy Policy
 - Update ```License.md``` and the relevant license field in package.json if applicable - See [npm's doc](https://docs.npmjs.com/files/package.json#license).
 - Add [sitemap.xml](https://en.wikipedia.org/wiki/Sitemaps) and [robots.txt](https://moz.com/learn/seo/robotstxt)
@@ -10,7 +10,7 @@ If you are done with your hackathon and thinking about launching your project in
 - Add Facebook App/Pixel ID
 - Add Winston Logging, and replace console.log statements with Winston; have a process for monitoring errors to identify bugs or other issues after launch.
 - SEO and Social Media Improvements
-- Create a deployment pipeline with a pre-prod/integration test stage.
+- Create a deliveryment pipeline with a pre-prod/integration test stage.
 - (optional) Add email verification *Some experimental data has shown that bogus email addresses are not a significant problem in many cases*
 - (optional) Add a filter for [disposable-email-domains](https://www.npmjs.com/package/disposable-email-domains).  *Some experimental data has shown that use of disposable emails is typically rare, and in many cases it might not be worth to add this filter.*
  

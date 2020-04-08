@@ -1,5 +1,5 @@
 const Database = require('../models/Database');
-const Deploypath = require('../models/Deploypath');
+const Deliverypath = require('../models/Deliverypath');
 const Refreshpath = require('../models/Refreshpath');
 
 /**
@@ -63,7 +63,9 @@ exports.postAddDatabase = (req, res, next) => {
   database
     .save()
     .then((result) => {
-      console.log('Database created');
+      req.flash('success', {
+        msg: 'Done! Database created.'
+      });
       res.redirect('/admin');
     })
     .catch((err) => {
@@ -90,6 +92,10 @@ exports.postEditDatabase = (req, res) => {
   }, (err) => {
     if (err) {
       console.log(err);
+    } else {
+      req.flash('success', {
+        msg: 'Done! Database modified.'
+      });
     }
     res.redirect('/admin');
   });
@@ -114,22 +120,26 @@ exports.postRemoveDatabase = (req, res) => {
   Database.findByIdAndRemove(req.body.id, (err) => {
     if (err) {
       console.log(err);
+    } else {
+      req.flash('success', {
+        msg: 'Done! Database removed.'
+      });
     }
     res.redirect('/admin');
   });
 };
 
 /**
- * GET /admin/edit-deploypath
- * Edit Deploy path form page.
+ * GET /admin/edit-deliverypath
+ * Edit Delivery path form page.
  */
-exports.getDeploypathList = (req, res, next) => {
-  Deploypath.find()
-    .then((deploypaths) => {
-      console.log(deploypaths);
-      res.render('admin/edit-deploypath', {
-        deploypaths,
-        title: 'Edit Deploy path',
+exports.getDeliverypathList = (req, res, next) => {
+  Deliverypath.find()
+    .then((deliverypaths) => {
+      console.log(deliverypaths);
+      res.render('admin/edit-deliverypath', {
+        deliverypaths,
+        title: 'Edit Delivery path',
       });
     })
     .catch((err) => {
@@ -137,10 +147,10 @@ exports.getDeploypathList = (req, res, next) => {
     });
 };
 
-// Add a deploy path
-exports.postAddDeploypath = (req, res, next) => {
-  const deploypath = new Deploypath({
-    deploypathName: req.body.name,
+// Add a delivery path
+exports.postAddDeliverypath = (req, res, next) => {
+  const deliverypath = new Deliverypath({
+    deliverypathName: req.body.name,
     instanceName: req.body.instanceName.split(','),
     serverName: req.body.serverName.split(','),
     status: req.body.status,
@@ -151,10 +161,10 @@ exports.postAddDeploypath = (req, res, next) => {
     port: req.body.port,
     iua: req.body.iua.split(',')
   });
-  deploypath
+  deliverypath
     .save()
     .then((result) => {
-      console.log('Deploy path created');
+      console.log('Delivery path created');
       res.redirect('/admin');
     })
     .catch((err) => {

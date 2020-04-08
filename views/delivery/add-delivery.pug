@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3
+      i.fas.fa-upload.fa-sm
+      | Request a new delivery 
+
+  form(action='/admin/add-delivery', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label(for='inlineFormCustomSelect') Application
+      select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='environment')
+        option(selected='') Choose...
+        option(value='AMERISC (AM)') AMERISC (AM)
+        option(value='AMERISC_BPCE (FI5)') AMERISC_BPCE (FI5)
+        option(value='ARAMIS (A5)') ARAMIS (A5)
+        option(value='ARTEMIS (XQZ)') ARTEMIS (XQZ)
+        option(value='BOP (CVS)') BOP (CVS)
+    .form-group
+      label(for='inlineFormCustomSelect') Environment
+      select#inlineFormCustomSelect.custom-select.mr-sm-2(type='text' name='environment')
+        option(selected='') Choose...
+        option(value='Development') Development
+        option(value='Test') Test
+        option(value='UAT') UAT
+        option(value='Bench') Bench
+        option(value='Production') Production
+

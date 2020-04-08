@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const deploypathSchema = new mongoose.Schema({
+const deliverypathSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -23,6 +23,6 @@ const deploypathSchema = new mongoose.Schema({
   }]
 });
 
-const Deploypath = mongoose.model('Deploypath', deploypathSchema);
+const Deliverypath = mongoose.model('Deliverypath', deliverypathSchema);
 
-module.exports = Deploypath;
+module.exports = Deliverypath;

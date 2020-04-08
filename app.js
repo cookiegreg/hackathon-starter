@@ -35,7 +35,8 @@ dotenv.config({
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
-const deployController = require('./controllers/deploy');
+const searchController = require('./controllers/search');
+const deliveryController = require('./controllers/delivery');
 const inventoryController = require('./controllers/inventory');
 const adminController = require('./controllers/admin');
 const dbrefreshController = require('./controllers/dbrefresh');
@@ -98,7 +99,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/deploy/upload') {
+  if (req.path === '/delivery/upload') {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
@@ -147,6 +148,9 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+// Search routes
+app.get('/search', searchController.index);
+app.get('/search/:dbname', searchController.query);
 // Admin routes
 //    Database Admin routes
 app.get('/admin', passportConfig.isAuthenticated, adminController.getAdmin);
@@ -159,12 +163,14 @@ app.post('/admin/remove-database', passportConfig.isAuthenticated, adminControll
 //    Refreshpath Admin routes
 app.get('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.getRefreshpathList);
 app.post('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.postAddRefreshpath);
-//    Deploypath Admin routes
-app.get('/admin/add-deploypath', passportConfig.isAuthenticated, adminController.getDeploypathList);
-app.post('/admin/add-deploypath', passportConfig.isAuthenticated, adminController.postAddDeploypath);
+//    Deliverypath Admin routes
+app.get('/admin/add-deliverypath', passportConfig.isAuthenticated, adminController.getDeliverypathList);
+app.post('/admin/add-deliverypath', passportConfig.isAuthenticated, adminController.postAddDeliverypath);
 // Menu routes
 app.get('/inventory', inventoryController.getDatabaseList);
-app.get('/deploy', deployController.getDeploy);
+app.get('/delivery', deliveryController.getDelivery);
+app.get('/delivery', deliveryController.getDelivery);
+app.get('/delivery/add-delivery', deliveryController.getAddDelivery);
 app.get('/dbrefresh', dbrefreshController.getDbRefresh);
 // Account routes
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
@@ -177,13 +183,12 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 /**
  * File Upload routes.
  */
-// app.get('/deploy', deployController.getDeploy);
-app.get('/deploy/upload', lusca({
+app.get('/delivery/upload', lusca({
   csrf: true
-}), deployController.getFileUpload);
-app.post('/deploy/upload', upload.single('myFile'), lusca({
+}), deliveryController.getFileUpload);
+app.post('/delivery/upload', upload.single('myFile'), lusca({
   csrf: true
-}), deployController.postFileUpload);
+}), deliveryController.postFileUpload);
 
 /**
  * Error Handler.

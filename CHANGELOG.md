@@ -138,7 +138,7 @@
 - Removed MONGOLAB_URI env var, use MONGODB_URI instead
 - Preserve the query parameters during authentication session returns (@shreedharshetty)
 - normalizeEmail options key remove_dots changed to gmail_remove_dots (@amakhnev)
-- Fixed Heroku re-deploy issue (@gballet)
+- Fixed Heroku re-delivery issue (@gballet)
 - Migrated from Jade to Pug
 - Migrated from GitHub npm package to @octokit/rest to address the related deprecation warning. See https://git.io/vNB11
 - Dependency update and upgrades
@@ -313,7 +313,7 @@
 - Font Awesome 4.2.0 [01e7bd5c09926911ca856fe4990e6067d9148694](https://github.com/sahat/hackathon-starter/commit/01e7bd5c09926911ca856fe4990e6067d9148694)
 - Code cleanup in `app.js` and `controllers/api.js`. [8ce48f767c0146062296685cc101acf3d5d224d9](https://github.com/sahat/hackathon-starter/commit/8ce48f767c0146062296685cc101acf3d5d224d9) [cdbb9d1888a96bbba92d4d14deec99a8acba2618](https://github.com/sahat/hackathon-starter/commit/cdbb9d1888a96bbba92d4d14deec99a8acba2618)
 - Updated Stripe API example. [afef373cd57b6a44bf856eb093e8f2801fc2dbe2](https://github.com/sahat/hackathon-starter/commit/afef373cd57b6a44bf856eb093e8f2801fc2dbe2)
-- Added 1-step deployment process with Heroku and mLab add-on. [c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f](https://github.com/sahat/hackathon-starter/commit/c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f)
+- Added 1-step deliveryment process with Heroku and mLab add-on. [c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f](https://github.com/sahat/hackathon-starter/commit/c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f)
 - Updated Twitter apps dashboard url. [e378fbbc24e269de69494d326bc20fcb641c0697](https://github.com/sahat/hackathon-starter/commit/e378fbbc24e269de69494d326bc20fcb641c0697)
 - Fixed dead links in the README. [78fac5489c596e8bcef0ab11a96e654335573bb4](https://github.com/sahat/hackathon-starter/commit/78fac5489c596e8bcef0ab11a96e654335573bb4)
 
@@ -337,7 +337,7 @@
 - Replaced `navbar-brand` image with a font icon
 
 ### 2.2.1 (June 17, 2014)
-- Added IBM Codename: BlueMix deployment instructions
+- Added IBM Codename: BlueMix deliveryment instructions
 
 ### 2.2 (June 6, 2014)
 - Use Lodash instead of Underscore.js

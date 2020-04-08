@@ -11,12 +11,12 @@ block content
                 | Admin Menu
             .dropdown-menu(aria-labelledby='AdminMenu')
                 a.dropdown-item(href='admin/add-database') Add a database
-                a.dropdown-item(href='admin/add-deploypath') Add a deploy path
+                a.dropdown-item(href='admin/add-deliverypath') Add a delivery path
                 a.dropdown-item(href='admin/add-refreshpath') Add a refresh path
     .col-md-6
             main
                 if databases.length > 0
-                    table.table
+                    table.table.table-bordered
                         thead.thead-dark
                             tr
                                 th Database Name
@@ -29,7 +29,7 @@ block content
                                 th Version
                                 th Port
                                 th IUA
-                                th Action
+                                th Actions
                         tbody
                         each database in databases
                             tr

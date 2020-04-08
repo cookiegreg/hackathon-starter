@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 
+      i.fas.fa-rocket
+      | Delivery
+
+  .container
+    .row
+      .btn-group(role='group' aria-label='Basic example')
+        a.btn.btn-secondary(href='/delivery/add-delivery')
+          i.fas.fa-file-upload
+          |  New Delivery
+        a.btn.btn-secondary(href='/delivery/upload')
+          i.fas.fa-file-upload
+          |  File Upload
+
