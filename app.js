@@ -19,9 +19,20 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
-const upload = multer({
-  dest: path.join(__dirname, 'uploads')
+/**
+ * Multer storage configuration
+ */
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'uploads');
+  },
+  filename(req, file, cb) {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+    cb(null, `${file.originalname}-${uniqueSuffix}`);
+  }
 });
+
+const upload = multer({ storage });
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -35,7 +46,7 @@ dotenv.config({
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
-const searchController = require('./controllers/search');
+// const searchController = require('./controllers/search');
 const deliveryController = require('./controllers/delivery');
 const inventoryController = require('./controllers/inventory');
 const adminController = require('./controllers/admin');
@@ -149,8 +160,8 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 // Search routes
-app.get('/search', searchController.index);
-app.get('/search/:dbname', searchController.query);
+// app.get('/search', searchController.index);
+// app.get('/search/:dbname', searchController.query);
 // Admin routes
 //    Database Admin routes
 app.get('/admin', passportConfig.isAuthenticated, adminController.getAdmin);
@@ -169,7 +180,6 @@ app.post('/admin/add-deliverypath', passportConfig.isAuthenticated, adminControl
 // Menu routes
 app.get('/inventory', inventoryController.getDatabaseList);
 app.get('/delivery', deliveryController.getDelivery);
-app.get('/delivery', deliveryController.getDelivery);
 app.get('/delivery/add-delivery', deliveryController.getAddDelivery);
 app.get('/dbrefresh', dbrefreshController.getDbRefresh);
 // Account routes
@@ -183,12 +193,8 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 /**
  * File Upload routes.
  */
-app.get('/delivery/upload', lusca({
-  csrf: true
-}), deliveryController.getFileUpload);
-app.post('/delivery/upload', upload.single('myFile'), lusca({
-  csrf: true
-}), deliveryController.postFileUpload);
+app.get('/delivery/upload', lusca({ csrf: true }), deliveryController.getFileUpload);
+app.post('/delivery/upload', upload.single('myFile'), lusca({ csrf: true }), deliveryController.postFileUpload);
 
 /**
  * Error Handler.
