@@ -3,16 +3,45 @@ extends ../layout
 block content
   .pb-2.mt-2.mb-4.border-bottom
     h3 
-      i.fas.fa-rocket
+      i.fas.fa-truck
       | Delivery
-
-  .container
-    .row
+  .col-md-6
       .btn-group(role='group' aria-label='Basic example')
-        a.btn.btn-secondary(href='/delivery/add-delivery')
-          i.fas.fa-file-upload
-          |  New Delivery
+        a.btn.btn-secondary(href='/delivery/new-delivery')
+          i.fab.fa-telegram-plane
+          | New Delivery
         a.btn.btn-secondary(href='/delivery/upload')
           i.fas.fa-file-upload
-          |  File Upload
-
+          | File Upload
+  p
+  p
+  .col
+      h4 Deliverypath list    
+  .col
+      main
+        if deliverypaths.length > 0
+          table.table.table-bordered
+            thead.thead-dark
+              tr
+                th Deliverypath Name
+                th Description
+                th IUA
+                th Schema
+                th Configuration
+                th Actions
+            tbody
+            each deliverypath in deliverypaths
+              tr
+              td= deliverypath.name
+              td= deliverypath.description
+              td= deliverypath.iua
+              td= deliverypath.dbschema
+              td= deliverypath.configuration
+              td
+                .btn-group.btn-group-sm(role='group' aria-label='action')
+                  a.btn.btn-primary(href='/admin/edit-deliverypath/'+deliverypath.id role='button' value=deliverypath.id)
+                    i.fas.fa-edit
+                  a.btn.btn-danger(href='/admin/remove-deliverypath/'+deliverypath.id role='button' value=deliverypath.id)
+                    i.fas.fa-trash-alt
+        else
+          p No deliverypath...

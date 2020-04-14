@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  .grid
+    form(action='/admin/remove-deliverypath', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      input(type='hidden' name='id' value=deliverypath.id)
+      button.col-md-7.btn.btn-danger(type='submit')
+        i.fas.fa-trash-alt
+        | Remove #{deliverypath.name} ? Are you sure ?  

@@ -2,9 +2,9 @@ extends ../layout
 
 block content
   .grid
-    form(action='/admin/remove-database', method='POST')
+    form(action='/admin/remove-refreshpath', method='POST')
       input(type='hidden', name='_csrf', value=_csrf)
-      input(type='hidden' name='id' value=database.id)
+      input(type='hidden' name='id' value=refreshpath.id)
       button.col-md-7.btn.btn-danger(type='submit')
         i.fas.fa-trash-alt
-        | Remove #{database.dbname} ? Are you sure ?  
+        | Remove #{refreshpath.name} ? Are you sure ?  

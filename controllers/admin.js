@@ -19,9 +19,10 @@ exports.getAdmin = (req, res) => {
     });
 };
 
+// DATABASE ADMIN
 /**
  * GET /admin/add-database
- * Edit Database form page.
+ * Add Database form page.
  */
 exports.getAddDatabase = (req, res) => {
   res.render('admin/add-database', {
@@ -129,42 +130,37 @@ exports.postRemoveDatabase = (req, res) => {
   });
 };
 
+
+// DELIVERY PATH ADMIN
 /**
- * GET /admin/edit-deliverypath
+ * GET /admin/add-deliverypath
  * Edit Delivery path form page.
  */
-exports.getDeliverypathList = (req, res, next) => {
-  Deliverypath.find()
-    .then((deliverypaths) => {
-      console.log(deliverypaths);
-      res.render('admin/edit-deliverypath', {
-        deliverypaths,
-        title: 'Edit Delivery path',
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.getAddDeliverypath = (req, res) => {
+  res.render('admin/add-deliverypath', {
+    title: 'Add Deliverypath'
+  });
 };
 
 // Add a delivery path
-exports.postAddDeliverypath = (req, res, next) => {
+exports.postAddDeliverypath = (req, res) => {
   const deliverypath = new Deliverypath({
-    deliverypathName: req.body.name,
-    instanceName: req.body.instanceName.split(','),
-    serverName: req.body.serverName.split(','),
-    status: req.body.status,
-    job: req.body.job,
+    name: req.body.name,
+    description: req.body.description,
+    iua: req.body.iua,
+    dbschema: req.body.dbschema,
     type: req.body.type,
-    environment: req.body.environment,
-    version: req.body.version,
-    port: req.body.port,
-    iua: req.body.iua.split(',')
+    configuration:{
+      dbname: req.body.dbname,
+      environment: req.body.environment
+    }
   });
   deliverypath
     .save()
     .then((result) => {
-      console.log('Delivery path created');
+      req.flash('success', {
+        msg: 'Done! Deliverypath created.'
+      });
       res.redirect('/admin');
     })
     .catch((err) => {
@@ -173,42 +169,138 @@ exports.postAddDeliverypath = (req, res, next) => {
 };
 
 /**
- * GET /admin/edit-refreshpath
- * Edit Refresh path form page.
+ * GET /admin/edit-deliverypath
+ * Edit Deliverypath form page.
  */
-exports.getRefreshpathList = (req, res, next) => {
-  Refreshpath.find()
-    .then((refreshpaths) => {
-      console.log(refreshpaths);
-      res.render('admin/edit-refreshpath', {
-        refreshpaths,
-        title: 'Edit Refresh path',
+exports.getEditDeliverypath = (req, res) => {
+  Deliverypath.findById(req.params.id, (err, deliverypath) => {
+    res.render('admin/edit-deliverypath', {
+      deliverypath,
+      title: 'My Deliverypath',
+      path: '/'
+    });
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// Remove a deliverypath
+exports.getRemoveDeliverypath = (req, res) => {
+  Deliverypath.findById(req.params.id, (err, deliverypath) => {
+    res.render('admin/remove-deliverypath', {
+      deliverypath,
+      title: 'Remove Deliverypath',
+      path: '/'
+    });
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.postRemoveDeliverypath = (req, res) => {
+  console.log(req.body.id);
+  Deliverypath.findByIdAndRemove(req.body.id, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      req.flash('success', {
+        msg: 'Done! Deliverypath removed.'
       });
+    }
+    res.redirect('/admin');
+  });
+};
+
+// REFRESHPATH ADMIN
+/**
+ * GET /admin/add-refreshpath
+ * Add Refreshpath form page.
+ */
+exports.getAddRefreshpath = (req, res) => {
+  res.render('admin/add-refreshpath', {
+    title: 'Add Refreshpath'
+  });
+};
+
+/**
+ * GET /admin/edit-refreshpath
+ * Edit Refreshpath form page.
+ */
+exports.getEditRefreshpath = (req, res) => {
+  Refreshpath.findById(req.params.id, (err, refreshpath) => {
+    res.render('admin/edit-refreshpath', {
+      refreshpath,
+      title: 'My refreshpath',
+      path: '/'
+    });
+  })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// Add a refreshpath
+exports.postAddRefreshpath = (req, res) => {
+  const refreshpath = new Refreshpath({
+    name: req.body.name,
+    description: req.body.description,
+    iua: req.body.iua,
+    source: {
+      dbname: req.body.dbname,
+      servername: req.body.servername,
+      dbschema: req.body.dbschema,
+      tbs: req.body.tbs
+    },
+    destination: {
+      dbname: req.body.dbname,
+      servername: req.body.servername,
+      dbschema: req.body.dbschema,
+      tbs: req.body.tbs
+    },
+    type: req.body.type,
+    method: req.body.method,
+    prescript: req.body.prescript,
+    postscript: req.body.postscript
+  });
+  refreshpath
+    .save()
+    .then((result) => {
+      req.flash('success', {
+        msg: 'Done! Refreshpath created.'
+      });
+      res.redirect('/admin');
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-// Add a refresh path
-exports.postAddRefreshpath = (req, res, next) => {
-  const refreshpath = new Refreshpath({
-    refreshpathName: req.body.refreshpathName,
-    instanceName: req.body.instanceName.split(','),
-    serverName: req.body.serverName.split(','),
-    status: req.body.status,
-    job: req.body.job,
-    type: req.body.type,
-    environment: req.body.environment,
-    iua: req.body.iua
-  });
-  refreshpath
-    .save()
-    .then((result) => {
-      console.log('Refresh path created');
-      res.redirect('/admin');
-    })
+// Remove a refreshpath
+exports.getRemoveRefreshpath = (req, res) => {
+  Refreshpath.findById(req.params.id, (err, refreshpath) => {
+    res.render('admin/remove-refreshpath', {
+      refreshpath,
+      title: 'Remove Refreshpath',
+      path: '/'
+    });
+  })
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postRemoveRefreshpath = (req, res) => {
+  console.log(req.body.id);
+  Refreshpath.findByIdAndRemove(req.body.id, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      req.flash('success', {
+        msg: 'Done! Refreshpath removed.'
+      });
+    }
+    res.redirect('/admin');
+  });
 };

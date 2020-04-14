@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  .pb-2.mt-2.mb-4.border-bottom
+    h3 
+      i.fas.fa-database
+      | DB Refresh
+  .col
+      h4 Refreshpath list    
+  .col
+      main
+        if refreshpaths.length > 0
+          table.table.table-bordered
+            thead.thead-dark
+              tr
+                th Refreshpath Name
+                th Description
+                th IUA
+                th Source
+                th Destination
+                th Type
+                th Method
+                th PreScript
+                th PostScript
+                th Actions
+            tbody
+            each refreshpath in refreshpaths
+              tr
+              td= refreshpath.name
+              td= refreshpath.description
+              td= refreshpath.iua
+              td= refreshpath.source
+              td= refreshpath.destination
+              td= refreshpath.type
+              td= refreshpath.method
+              td= refreshpath.prescript
+              td= refreshpath.postscript
+              td
+                .btn-group.btn-group-sm(role='group' aria-label='action')
+                  a.btn.btn-primary(href='/admin/edit-refreshpath/'+refreshpath.id role='button' value=refreshpath.id)
+                    i.fas.fa-edit
+                  a.btn.btn-danger(href='/admin/remove-refreshpath/'+refreshpath.id role='button' value=refreshpath.id)
+                    i.fas.fa-trash-alt
+        else
+          p No refreshpath...

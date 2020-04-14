@@ -172,15 +172,24 @@ app.post('/admin/edit-database', passportConfig.isAuthenticated, adminController
 app.get('/admin/remove-database/:id', passportConfig.isAuthenticated, adminController.getRemoveDatabase);
 app.post('/admin/remove-database', passportConfig.isAuthenticated, adminController.postRemoveDatabase);
 //    Refreshpath Admin routes
-app.get('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.getRefreshpathList);
+app.get('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.getAddRefreshpath);
 app.post('/admin/add-refreshpath', passportConfig.isAuthenticated, adminController.postAddRefreshpath);
+app.get('/admin/edit-refreshpath/:id', passportConfig.isAuthenticated, adminController.getEditRefreshpath);
+// app.post('/admin/edit-refreshpath', passportConfig.isAuthenticated, adminController.postEditRefreshpath);
+app.get('/admin/remove-refreshpath/:id', passportConfig.isAuthenticated, adminController.getRemoveRefreshpath);
+app.post('/admin/remove-refreshpath', passportConfig.isAuthenticated, adminController.postRemoveRefreshpath);
+
 //    Deliverypath Admin routes
-app.get('/admin/add-deliverypath', passportConfig.isAuthenticated, adminController.getDeliverypathList);
+app.get('/admin/add-deliverypath', passportConfig.isAuthenticated, adminController.getAddDeliverypath);
 app.post('/admin/add-deliverypath', passportConfig.isAuthenticated, adminController.postAddDeliverypath);
-// Menu routes
+app.get('/admin/edit-deliverypath/:id', passportConfig.isAuthenticated, adminController.getEditDeliverypath);
+// app.post('/admin/edit-deliverypath', passportConfig.isAuthenticated, adminController.postEditDeliverypath);
+app.get('/admin/remove-deliverypath/:id', passportConfig.isAuthenticated, adminController.getRemoveDeliverypath);
+app.post('/admin/remove-deliverypath', passportConfig.isAuthenticated, adminController.postRemoveDeliverypath);
+// NAVBAR Menu routes
 app.get('/inventory', inventoryController.getDatabaseList);
-app.get('/delivery', deliveryController.getDelivery);
-app.get('/delivery/add-delivery', deliveryController.getAddDelivery);
+app.get('/delivery', deliveryController.getDeliverypath);
+app.get('/delivery/new-delivery', deliveryController.getNewDelivery);
 app.get('/dbrefresh', dbrefreshController.getDbRefresh);
 // Account routes
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);

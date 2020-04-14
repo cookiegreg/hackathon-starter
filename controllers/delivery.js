@@ -1,13 +1,20 @@
-/**
- * GET /
- * Home page.
- */
-exports.getDelivery = (req, res) => {
-  res.render('delivery', {
-    title: 'HomeDelivery'
-  });
-};
+const Deliverypath = require('../models/Deliverypath');
 
+/**
+ * GET /delivery/index
+ */
+exports.getDeliverypath = (req, res) => {
+  Deliverypath.find()
+    .then((deliverypaths) => {
+      res.render('delivery/index', {
+        deliverypaths,
+        title: 'All deliverypath',
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 /**
  * GET /delivery/upload
  * File Upload.
@@ -34,8 +41,8 @@ exports.postFileUpload = (req, res) => {
  * File Upload.
  */
 
-exports.getAddDelivery = (req, res) => {
-  res.render('delivery/add-delivery', {
+exports.getNewDelivery = (req, res) => {
+  res.render('delivery/new-delivery', {
     title: 'Create a new delivery'
   });
 };

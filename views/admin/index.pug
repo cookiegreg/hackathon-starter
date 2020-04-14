@@ -13,41 +13,4 @@ block content
                 a.dropdown-item(href='admin/add-database') Add a database
                 a.dropdown-item(href='admin/add-deliverypath') Add a delivery path
                 a.dropdown-item(href='admin/add-refreshpath') Add a refresh path
-    .col-md-6
-            main
-                if databases.length > 0
-                    table.table.table-bordered
-                        thead.thead-dark
-                            tr
-                                th Database Name
-                                th Instance Name
-                                th Server Name
-                                th Status
-                                th Job
-                                th Type
-                                th Environment
-                                th Version
-                                th Port
-                                th IUA
-                                th Actions
-                        tbody
-                        each database in databases
-                            tr
-                            td= database.dbname
-                            td= database.instancename
-                            td= database.servername
-                            td= database.status
-                            td= database.job
-                            td= database.type
-                            td= database.environment
-                            td= database.version
-                            td= database.port
-                            td= database.iua
-                            td
-                                .btn-group.btn-group-sm(role='group' aria-label='action')
-                                    a.btn.btn-primary(href='/admin/edit-database/'+database.id role='button' value=database.id)
-                                        i.fas.fa-edit
-                                    a.btn.btn-danger(href='/admin/remove-database/'+database.id role='button' value=database.id)
-                                        i.fas.fa-trash-alt
-                else
-                    h4 No databases...
+
